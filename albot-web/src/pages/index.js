@@ -1,5 +1,6 @@
 import {useState} from "react";
 import ReactMarkdown from 'react-markdown';
+import Head from "next/head";
 
 const SYSTEM_MESSAGE= "You are Albot, a helpful and versatile AI created by Alfiya Anware using state of the art ML models and APIs."
 
@@ -38,7 +39,11 @@ export default function Home() {
     
   }
 
-  return <div className="flex flex-col h-screen">
+  return (
+  
+  <><Head><title>Albot - Your friendly neighbourhood AI</title></Head>
+  
+  <div className="flex flex-col h-screen">
     <nav className="shadow p-4 flex flex-row justify-between items-center">
       <img src="albot.png" alt="Albot Logo" className="h-12 w-18" />
       <div>
@@ -83,5 +88,7 @@ export default function Home() {
 
     </div>
   </div>
+  </>
+  )
 }
  
