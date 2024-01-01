@@ -1,7 +1,9 @@
 import {useState} from "react";
+const SYSTEM_MESSAGE= "You are Albot, a helpful and versatile AI created by Alfiya Anware using state of the art ML models and APIs."
 
 export default function Home() {
-  const [apiKey, setApiKey] = useState(''); 
+  const [apiKey, setApiKey] = useState(""); 
+  const [botMessage, setBotMessage] = useState("");
 
   const API_URL= "https://api.openai.com/v1/chat/completions";
 
@@ -14,13 +16,18 @@ export default function Home() {
       },
       body:JSON.stringify({
         "model": "gpt-3.5-turbo",
-        "messages": [{"role": "user", "content": "Hello."}]
+        "messages": [
+          {role:"system", content:SYSTEM_MESSAGE},
+          {role: "user", content: "Hello, introduce yourself."},]
       }),
     });
 
     const responseJson= await response.json();
-     console.log(responseJson);
+    
+    setBotMessage(responseJson.choices[0].message.content);
+    
   }
+
   return <div className="flex flex-col h-screen">
     <nav className="shadow p-4 flex flex-row justify-between items-center">
       <div className="text-xl font-bold">Albot</div>
@@ -38,6 +45,7 @@ export default function Home() {
       onClick={sendRequest}>
         Send Request
       </button>
+      <div className="text-lg mt-4">{botMessage}</div>
     </div>
   </div>
 }
