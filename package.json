@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@tailwindcss/typography": "github:tailwindcss/typography",
+    "react-markdown": "^9.0.1"
+  }
+}

@@ -1,4 +1,6 @@
 import {useState} from "react";
+import ReactMarkdown from 'react-markdown';
+
 const SYSTEM_MESSAGE= "You are Albot, a helpful and versatile AI created by Alfiya Anware using state of the art ML models and APIs."
 
 export default function Home() {
@@ -29,6 +31,7 @@ export default function Home() {
     });
 
     const responseJson= await response.json();
+
     const newBotMessage = responseJson.choices[0].message;
     const newMessages2 = [...newMessages, newBotMessage]
     setMessages(newMessages2);
@@ -49,12 +52,15 @@ export default function Home() {
 
     
     {/* Message History */}
-    <div className="flex-1 ">
+    <div className="flex-1 overflow-y-scroll">
     <div className="w-full max-w-screen-md mx-auto px-4">
       {messages.filter(message => message.role !== "system").map((message, idx) => (
-        <div key={idx} className="mt-3">
+        <div key={idx} className="my-3">
           <div className="font-bold">{message.role === "user" ? "You" : "Albot"}</div>
-          <div className="text-lg">{message.content}</div>
+          <div className="text-lg prose">
+          <ReactMarkdown>{message.content}</ReactMarkdown>
+          </div>
+          
         </div>
       ))}
     </div>
@@ -64,7 +70,7 @@ export default function Home() {
     <div>
       <div className="w-full max-w-screen-md mx-auto flex px-4 pb-4">
         <textarea 
-        Value={userMessage}
+        value={userMessage}
         onChange={(e) => setUserMessage(e.target.value)}
         className="border text-lg rounded-md p-1 flex-1" rows={1}/>
         
