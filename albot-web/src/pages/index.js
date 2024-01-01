@@ -40,7 +40,7 @@ export default function Home() {
 
   return <div className="flex flex-col h-screen">
     <nav className="shadow p-4 flex flex-row justify-between items-center">
-      <img src="albot.png" alt="Albot Logo" className="h-12 w-18" />
+      {/* <img src="albot.png" alt="Albot Logo" className="h-12 w-18" /> */}
       <div>
         <input type="password" 
         className="border p-1 rounded" 
