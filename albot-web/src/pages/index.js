@@ -2,18 +2,25 @@ import {useState} from "react";
 import ReactMarkdown from 'react-markdown';
 import Head from "next/head";
 import { createParser } from "eventsource-parser";
+import Navbar from '../components/Navbar';
 
 const SYSTEM_MESSAGE= "You are Albot, a helpful and versatile AI created by Alfiya Anware using state of the art ML models and APIs."
 
 export default function Home() {
   const [apiKey, setApiKey] = useState(""); 
   const [userMessage, setUserMessage] = useState("");
-  const [messages, setMessages ] =useState([
-    {role:"system", content:SYSTEM_MESSAGE}]);
+  const [messages, setMessages ] =useState([{role:"system", content:SYSTEM_MESSAGE}]);
 
   const API_URL= "https://api.openai.com/v1/chat/completions";
 
   const sendRequest = async () => {
+    if(!userMessage){
+      alert("Please enter a message before you hit send.");
+    }
+    if(!apiKey){
+      alert("Please provide your OpenAi API key.");
+      return;
+    }
     const updatedMessages = [...messages, {role: "user", content: userMessage,},];
 
     setMessages(updatedMessages);
@@ -80,16 +87,8 @@ export default function Home() {
   <><Head><title>Albot - Your friendly neighbourhood AI</title></Head>
   
   <div className="flex flex-col h-screen">
-    <nav className="shadow p-4 flex flex-row justify-between items-center">
-      <img src="albot.png" alt="Albot Logo" className="h-12 w-18" />
-      <div>
-        <input type="password" 
-        className="border p-1 rounded" 
-        onChange={e => setApiKey(e.target.value)}
-        value={apiKey}
-        placeholder="Paste API Key here" />
-      </div> 
-    </nav>
+    <Navbar />
+  
 
     
     {/* Message History */}
