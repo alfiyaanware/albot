@@ -6,8 +6,11 @@ export const config = {
 };
 
 async function handler(req, res) {
+    console.log("req: ",req)
   const supabase = createMiddlewareClient({ req, res });
+  console.log("supabase: ",supabase)
   const body = await req.json();
+  console.log("body: ",body)
 
   body.model = "gpt-3.5-turbo";
 
